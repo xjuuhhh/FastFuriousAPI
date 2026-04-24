@@ -28,6 +28,7 @@
 	</scm>
 	<properties>
 		<java.version>21</java.version>
+                <start-class>br.com.juliac.FastFuriousAPI.FastFuriousApiApplication</start-class>
 	</properties>
 	<dependencies>
 		<dependency>
