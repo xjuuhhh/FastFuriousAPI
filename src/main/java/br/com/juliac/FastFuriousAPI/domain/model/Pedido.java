@@ -4,6 +4,7 @@
  */
 package br.com.juliac.FastFuriousAPI.domain.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -37,7 +38,7 @@ public class Pedido {
     private LocalDateTime dtPronto;
     private LocalDateTime dtEntregue;
     
-    @OneToMany(mappedBy = "pedido")
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemPedido> itens = new ArrayList<>();
 
 
@@ -117,6 +118,5 @@ public class Pedido {
     public void setItens(List<ItemPedido> itens) {
         this.itens = itens;
     }
-    
-    
+
 }
