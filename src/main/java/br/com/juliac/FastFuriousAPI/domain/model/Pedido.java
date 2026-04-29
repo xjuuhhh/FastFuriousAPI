@@ -118,5 +118,20 @@ public class Pedido {
     public void setItens(List<ItemPedido> itens) {
         this.itens = itens;
     }
+    
+    @Override
+    // equals: Compara se dois pedidos são iguais apenas pelo ID, o que é o padrão ouro para banco de dados.
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pedido pedido = (Pedido) o;
+        return java.util.Objects.equals(id, pedido.id);
+    }
+
+    @Override
+    // hashCode: Gera um código único para o objeto baseado no ID, ajudando na performance de listas.
+    public int hashCode() {
+        return java.util.Objects.hash(id);
+    }
 
 }
