@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -36,6 +37,7 @@ public class ProdutoController {
     
     
     @PostMapping //Define que este método será acionado quando alguém enviar dados para /produtos
+    @ResponseStatus(org.springframework.http.HttpStatus.CREATED)
     public ProdutoResponseDTO cadastrar(@Valid @RequestBody ProdutoRequestDTO produto) { //Diz ao Spring para pegar o JSON que vier do Postman e transformar em um objeto Produto
         return service.salvar(produto); //repository.save: Comando do JpaRepository que insere o novo registro no banco de dados
     }
