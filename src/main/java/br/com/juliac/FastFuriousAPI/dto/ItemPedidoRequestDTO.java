@@ -4,6 +4,11 @@
  */
 package br.com.juliac.FastFuriousAPI.dto;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
+
+
 /**
  *
  * @author sesi3dia
@@ -11,8 +16,13 @@ package br.com.juliac.FastFuriousAPI.dto;
 
 // Este DTO representa cada linha do pedido que o cliente está montando
 public record ItemPedidoRequestDTO(
+        @NotNull(message="Obrigatória")
         Long produtoId, 
+        
+        @NotNull(message="Obrigatória")
+        @Positive(message="qtd deve ser maior que zero") 
         Double qtd, 
+        
         String obs) {
 
 
