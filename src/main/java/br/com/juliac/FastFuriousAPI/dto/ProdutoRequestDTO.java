@@ -5,6 +5,8 @@
 package br.com.juliac.FastFuriousAPI.dto;
 
 import br.com.juliac.FastFuriousAPI.domain.model.CategoriaProduto;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 
 /**
  *
@@ -12,9 +14,14 @@ import br.com.juliac.FastFuriousAPI.domain.model.CategoriaProduto;
  */
 //O que o usuário envia para cadastrar
 public record ProdutoRequestDTO(
+    @NotBlank
     String nome, 
+        
     String descricao, 
+    
+    @Positive
     Double preco, 
+    
     CategoriaProduto categoria    ) {
 
 }

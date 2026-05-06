@@ -6,6 +6,9 @@ package br.com.juliac.FastFuriousAPI.controller;
 
 import br.com.juliac.FastFuriousAPI.domain.model.Pedido;
 import br.com.juliac.FastFuriousAPI.domain.repository.PedidoRepository;
+import br.com.juliac.FastFuriousAPI.domain.service.PedidoService;
+import br.com.juliac.FastFuriousAPI.dto.PedidoRequestDTO;
+import br.com.juliac.FastFuriousAPI.dto.PedidoResponseDTO;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,17 +25,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/pedidos") // Define a rota principal como http://localhost:8080/pedidos
 public class PedidoController {
     
-    @Autowired // Injeta o repositório para acessar o banco de dados de Pedidos
-    private PedidoRepository repository;
+    @Autowired
+    private PedidoService service;
 
     @GetMapping // Método para listar todos os pedidos (Verbo GET)
-    public List<Pedido> listar() {
-        return repository.findAll();// Retorna todos os registros da tabela pedido
+    public List<PedidoResponseDTO> listar() {
+        return service.listarTodos();// O service já devolve a lista bonitinha (DTO)
     }
 
     @PostMapping // Método para criar um novo pedido (Verbo POST)
-    public Pedido cadastrar(@RequestBody Pedido pedido) {
-        return repository.save(pedido); // Salva o pedido enviado no corpo da requisição (JSON) no banco
+    public PedidoResponseDTO cadastrar(@RequestBody PedidoRequestDTO dto) {
+        return service.salvar(dto); 
     }
     
 }

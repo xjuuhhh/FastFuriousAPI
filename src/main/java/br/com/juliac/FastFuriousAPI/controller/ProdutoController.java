@@ -6,6 +6,9 @@ package br.com.juliac.FastFuriousAPI.controller;
 
 import br.com.juliac.FastFuriousAPI.domain.model.Produto;
 import br.com.juliac.FastFuriousAPI.domain.repository.ProdutoRepository;
+import br.com.juliac.FastFuriousAPI.domain.service.ProdutoService;
+import br.com.juliac.FastFuriousAPI.dto.ProdutoRequestDTO;
+import br.com.juliac.FastFuriousAPI.dto.ProdutoResponseDTO;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,16 +26,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProdutoController {
     
     @Autowired //É a "Injeção de Dependência". O Spring entrega o Repository pronto para o Controller usar, sem você precisar dar new
-    private ProdutoRepository repository;
+    private ProdutoService service;
     
     @GetMapping //Diz que, se alguém fizer uma busca (GET), ele deve retornar a lista de todos os produtos do banco
-    public List <Produto> listar() {
-        return repository.findAll();
+    public List <ProdutoResponseDTO> listar() {
+        return service.listarTodos();
     }
     
     
     @PostMapping //Define que este método será acionado quando alguém enviar dados para /produtos
-    public Produto cadastrar(@RequestBody Produto produto) { //Diz ao Spring para pegar o JSON que vier do Postman e transformar em um objeto Produto
-        return repository.save(produto); //repository.save: Comando do JpaRepository que insere o novo registro no banco de dados
+    public ProdutoResponseDTO cadastrar(@RequestBody ProdutoRequestDTO produto) { //Diz ao Spring para pegar o JSON que vier do Postman e transformar em um objeto Produto
+        return service.salvar(produto); //repository.save: Comando do JpaRepository que insere o novo registro no banco de dados
     }
 }
