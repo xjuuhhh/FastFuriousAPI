@@ -4,6 +4,8 @@
  */
 package br.com.juliac.FastFuriousAPI.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import java.util.List;
 
 /**
@@ -11,8 +13,13 @@ import java.util.List;
  * @author sesi3dia
  */
 public record PedidoRequestDTO(
+        @NotBlank(message="Obrigatório")
         String cpf,
+        
+        @NotBlank(message="Obrigatório")
         String cliente,
+        
+        @NotEmpty(message="Deve ter pelo menos um item")
         List<ItemPedidoRequestDTO> itens // Uma lista de itens com suas quantidades
         ) {
 

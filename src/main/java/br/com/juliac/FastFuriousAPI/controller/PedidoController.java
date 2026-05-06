@@ -9,6 +9,7 @@ import br.com.juliac.FastFuriousAPI.domain.repository.PedidoRepository;
 import br.com.juliac.FastFuriousAPI.domain.service.PedidoService;
 import br.com.juliac.FastFuriousAPI.dto.PedidoRequestDTO;
 import br.com.juliac.FastFuriousAPI.dto.PedidoResponseDTO;
+import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +35,7 @@ public class PedidoController {
     }
 
     @PostMapping // Método para criar um novo pedido (Verbo POST)
-    public PedidoResponseDTO cadastrar(@RequestBody PedidoRequestDTO dto) {
+    public PedidoResponseDTO cadastrar(@Valid @RequestBody PedidoRequestDTO dto) {
         return service.salvar(dto); 
     }
     

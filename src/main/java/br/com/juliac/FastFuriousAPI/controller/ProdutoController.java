@@ -9,6 +9,7 @@ import br.com.juliac.FastFuriousAPI.domain.repository.ProdutoRepository;
 import br.com.juliac.FastFuriousAPI.domain.service.ProdutoService;
 import br.com.juliac.FastFuriousAPI.dto.ProdutoRequestDTO;
 import br.com.juliac.FastFuriousAPI.dto.ProdutoResponseDTO;
+import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +36,7 @@ public class ProdutoController {
     
     
     @PostMapping //Define que este método será acionado quando alguém enviar dados para /produtos
-    public ProdutoResponseDTO cadastrar(@RequestBody ProdutoRequestDTO produto) { //Diz ao Spring para pegar o JSON que vier do Postman e transformar em um objeto Produto
+    public ProdutoResponseDTO cadastrar(@Valid @RequestBody ProdutoRequestDTO produto) { //Diz ao Spring para pegar o JSON que vier do Postman e transformar em um objeto Produto
         return service.salvar(produto); //repository.save: Comando do JpaRepository que insere o novo registro no banco de dados
     }
 }
