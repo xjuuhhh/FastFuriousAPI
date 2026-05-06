@@ -12,8 +12,12 @@ import br.com.juliac.FastFuriousAPI.dto.ProdutoResponseDTO;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -26,19 +30,29 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController //Avisa ao Spring que essa classe responde requisições HTTP.
 @RequestMapping("/produtos") //Endereço , Define que toda vez que alguém digitar /produtos, o código virá para cá.
 public class ProdutoController {
-    
+
     @Autowired //É a "Injeção de Dependência". O Spring entrega o Repository pronto para o Controller usar, sem você precisar dar new
     private ProdutoService service;
-    
+
     @GetMapping //Diz que, se alguém fizer uma busca (GET), ele deve retornar a lista de todos os produtos do banco
-    public List <ProdutoResponseDTO> listar() {
+    public List<ProdutoResponseDTO> listar() {
         return service.listarTodos();
     }
-    
-    
+
     @PostMapping //Define que este método será acionado quando alguém enviar dados para /produtos
     @ResponseStatus(org.springframework.http.HttpStatus.CREATED)
     public ProdutoResponseDTO cadastrar(@Valid @RequestBody ProdutoRequestDTO produto) { //Diz ao Spring para pegar o JSON que vier do Postman e transformar em um objeto Produto
         return service.salvar(produto); //repository.save: Comando do JpaRepository que insere o novo registro no banco de dados
+    }
+
+    @PutMapping("/{id}")
+    public ProdutoResponseDTO atualizar(@PathVariable Long id, @Valid @RequestBody ProdutoRequestDTO dto) {
+        return service.atualizar(id, dto);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void excluir(@PathVariable Long id) {
+        service.excluir(id);
     }
 }

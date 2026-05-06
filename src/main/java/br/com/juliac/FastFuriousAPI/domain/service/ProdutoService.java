@@ -43,22 +43,25 @@ public class ProdutoService {
                 .toList();
     }
 
-    // UPDATE: Busca o produto pelo ID e atualiza os dados
-    public ProdutoResponseDTO atualizar(Long id, ProdutoRequestDTO dto) {
-        Produto produto = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+    // UPDATE: Atualiza os dados de um produto existente
+public ProdutoResponseDTO atualizar(Long id, ProdutoRequestDTO dto) {
+    Produto produto = repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+    
+    produto.setNome(dto.nome());
+    produto.setDescricao(dto.descricao());
+    produto.setPreco(dto.preco());
+    produto.setCategoria(dto.categoria());
+    
+    return new ProdutoResponseDTO(repository.save(produto));
+}
 
-        produto.setNome(dto.nome());
-        produto.setDescricao(dto.descricao());
-        produto.setPreco(dto.preco());
-        produto.setCategoria(dto.categoria());
-
-        return new ProdutoResponseDTO(repository.save(produto));
+// DELETE: Exclui o produto do banco
+public void excluir(Long id) {
+    if (!repository.existsById(id)) {
+        throw new RuntimeException("Produto não encontrado");
     }
-
-// DELETE: Remove do banco pelo ID
-    public void excluir(Long id) {
-        repository.deleteById(id);
-    }
+    repository.deleteById(id);
+}
 
 }

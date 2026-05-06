@@ -81,4 +81,13 @@ public class PedidoService {
         return new PedidoResponseDTO(p.getId(), p.getCliente(), p.getStatus(), itensDTO);
     }
     
+    public void cancelar(Long id) {
+    Pedido pedido = pedidoRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+    
+    // Altera o status em vez de apagar
+    pedido.setStatus(StatusPedido.CANCELADO); 
+    pedidoRepository.save(pedido);
+}
+    
 }
