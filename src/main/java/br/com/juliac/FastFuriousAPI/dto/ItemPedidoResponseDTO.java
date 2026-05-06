@@ -4,18 +4,14 @@
  */
 package br.com.juliac.FastFuriousAPI.dto;
 
-import br.com.juliac.FastFuriousAPI.domain.model.StatusPedido;
-import java.util.List;
-
 /**
  *
  * @author sesi3dia
  */
-public record PedidoResponseDTO(
-        Long id,
-        String cliente,
-        StatusPedido status,
-        List<ItemPedidoResponseDTO> itens
-        ) {
-
-}
+public record ItemPedidoResponseDTO(
+        String produtoNome, //Ao invés do id, mostra o nome
+        Double qtd,
+        Double vunit,
+        Double vtotal
+        ) {}
+        

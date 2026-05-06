@@ -8,8 +8,9 @@ package br.com.juliac.FastFuriousAPI.dto;
  *
  * @author sesi3dia
  */
+
 // Este DTO representa cada linha do pedido que o cliente está montando
-public record ItemPedidoResquestDTO(
+public record ItemPedidoRequestDTO(
         Long produtoId, 
         Double qtd, 
         String obs) {
